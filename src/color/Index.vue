@@ -4,6 +4,7 @@
         :class="{ light: isLightTheme }"
         :style="{ width: totalWidth + 'px' }"
     >
+        <div class="close-icon" @click="close()">×</div>
         <div class="color-set">
             <Saturation
                 ref="saturation"
@@ -28,10 +29,7 @@
                 @selectAlpha="selectAlpha"
             />
         </div>
-        <div
-            :style="{ height: previewHeight + 'px' }"
-            class="color-show"
-        >
+        <div :style="{ height: previewHeight + 'px' }" class="color-show">
             <Preview
                 :color="rgbaString"
                 :width="previewWidth"
@@ -45,16 +43,8 @@
                 @selectSucker="selectSucker"
             />
         </div>
-        <Box
-            name="HEX"
-            :color="modelHex"
-            @inputColor="inputHex"
-        />
-        <Box
-            name="RGBA"
-            :color="modelRgba"
-            @inputColor="inputRgba"
-        />
+        <Box name="HEX" :color="modelHex" @inputColor="inputHex" />
+        <Box name="RGBA" :color="modelRgba" @inputColor="inputRgba" />
         <Colors
             :color="rgbaString"
             :colors-default="colorsDefault"
@@ -81,41 +71,55 @@ export default {
         Preview,
         Sucker,
         Box,
-        Colors
+        Colors,
     },
     mixins: [mixin],
     props: {
         color: {
             type: String,
-            default: '#000000'
+            default: '#000000',
         },
         theme: {
             type: String,
-            default: 'dark'
+            default: 'dark',
         },
         suckerHide: {
             type: Boolean,
-            default: true
+            default: true,
         },
         suckerCanvas: {
             type: null, // HTMLCanvasElement
-            default: null
+            default: null,
         },
         suckerArea: {
             type: Array,
-            default: () => []
+            default: () => [],
         },
         colorsDefault: {
             type: Array,
             default: () => [
-                '#000000', '#FFFFFF', '#FF1900', '#F47365', '#FFB243', '#FFE623', '#6EFF2A', '#1BC7B1',
-                '#00BEFF', '#2E81FF', '#5D61FF', '#FF89CF', '#FC3CAD', '#BF3DCE', '#8E00A7', 'rgba(0,0,0,0)'
-            ]
+                '#000000',
+                '#FFFFFF',
+                '#FF1900',
+                '#F47365',
+                '#FFB243',
+                '#FFE623',
+                '#6EFF2A',
+                '#1BC7B1',
+                '#00BEFF',
+                '#2E81FF',
+                '#5D61FF',
+                '#FF89CF',
+                '#FC3CAD',
+                '#BF3DCE',
+                '#8E00A7',
+                'rgba(0,0,0,0)',
+            ],
         },
         colorsHistoryKey: {
             type: String,
-            default: 'vue-colorpicker-history'
-        }
+            default: 'vue-colorpicker-history',
+        },
     },
     data() {
         return {
@@ -130,7 +134,7 @@ export default {
             a: 1,
             h: 0,
             s: 0,
-            v: 0
+            v: 0,
         }
     },
     computed: {
@@ -148,14 +152,14 @@ export default {
                 r: this.r,
                 g: this.g,
                 b: this.b,
-                a: this.a
+                a: this.a,
             }
         },
         hsv() {
             return {
                 h: this.h,
                 s: this.s,
-                v: this.v
+                v: this.v,
             }
         },
         rgbString() {
@@ -169,7 +173,7 @@ export default {
         },
         hexString() {
             return this.rgb2hex(this.rgba, true)
-        }
+        },
     },
     created() {
         Object.assign(this, this.setColorValue(this.color))
@@ -180,7 +184,7 @@ export default {
             this.$emit('changeColor', {
                 rgba: this.rgba,
                 hsv: this.hsv,
-                hex: this.modelHex
+                hex: this.modelHex,
             })
         })
     },
@@ -202,6 +206,9 @@ export default {
         selectAlpha(a) {
             this.a = a
             this.setText()
+        },
+        close() {
+            this.$emit('requestsClose', false)
         },
         inputHex(color) {
             const { r, g, b, a, h, s, v } = this.setColorValue(color)
@@ -251,18 +258,30 @@ export default {
                 this.$refs.saturation.renderSlide()
                 this.$refs.hue.renderSlide()
             })
-        }
-    }
+        },
+    },
 }
 </script>
 
 <style lang="scss">
 .hu-color-picker {
+    position: relative;
     padding: 10px;
     background: #1d2024;
     border-radius: 4px;
     box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.16);
     z-index: 1;
+
+    .close-icon {
+        position: relative;
+        top: -20px;
+        right: -38px;
+        cursor: pointer;
+        font-size: 2rem;
+        float: right;
+        pointer-events: all;
+    }
+
     &.light {
         background: #f7f8f9;
         .color-show {
