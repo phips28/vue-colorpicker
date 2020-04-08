@@ -1,56 +1,31 @@
 <template>
-    <div
-        class="hu-color-picker"
-        :class="{ light: isLightTheme }"
-        :style="{ width: totalWidth + 'px' }"
-    >
-        <div class="close-icon" @click="close()">×</div>
-        <div class="color-set">
-            <Saturation
-                ref="saturation"
-                :color="rgbString"
-                :hsv="hsv"
-                :size="hueHeight"
-                @selectSaturation="selectSaturation"
-            />
-            <Hue
-                ref="hue"
-                :hsv="hsv"
-                :width="hueWidth"
-                :height="hueHeight"
-                @selectHue="selectHue"
-            />
-            <Alpha
-                ref="alpha"
-                :color="rgbString"
-                :rgba="rgba"
-                :width="hueWidth"
-                :height="hueHeight"
-                @selectAlpha="selectAlpha"
-            />
+    <div id="picker">
+        <div class="blur-bg" @click="close()"></div>
+        <div
+            class="hu-color-picker"
+            :class="{ light: isLightTheme }"
+            :style="{ width: totalWidth + 'px' }"
+        >
+            <div class="close-icon" @click="close()">×</div>
+            <div class="color-set">
+                <Saturation
+                    ref="saturation"
+                    :color="rgbString"
+                    :hsv="hsv"
+                    :size="hueHeight"
+                    @selectSaturation="selectSaturation"
+                />
+                <Hue
+                    ref="hue"
+                    :hsv="hsv"
+                    :width="hueWidth"
+                    :height="hueHeight"
+                    @selectHue="selectHue"
+                />
+            </div>
+            <Box name="HEX" :color="modelHex" @inputColor="inputHex" />
+            <Box name="RGBA" :color="modelRgba" @inputColor="inputRgba" />
         </div>
-        <div :style="{ height: previewHeight + 'px' }" class="color-show">
-            <Preview
-                :color="rgbaString"
-                :width="previewWidth"
-                :height="previewHeight"
-            />
-            <Sucker
-                v-if="!suckerHide"
-                :sucker-canvas="suckerCanvas"
-                :sucker-area="suckerArea"
-                @openSucker="openSucker"
-                @selectSucker="selectSucker"
-            />
-        </div>
-        <Box name="HEX" :color="modelHex" @inputColor="inputHex" />
-        <Box name="RGBA" :color="modelRgba" @inputColor="inputRgba" />
-        <Colors
-            :color="rgbaString"
-            :colors-default="colorsDefault"
-            :colors-history-key="colorsHistoryKey"
-            @selectColor="selectColor"
-        />
     </div>
 </template>
 
@@ -264,13 +239,23 @@ export default {
 </script>
 
 <style lang="scss">
+.blur-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 9;
+}
+
 .hu-color-picker {
+    width: 176px !important;
     position: relative;
     padding: 10px;
     background: #1d2024;
     border-radius: 4px;
     box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.16);
-    z-index: 1;
+    z-index: 99;
 
     .close-icon {
         position: relative;
