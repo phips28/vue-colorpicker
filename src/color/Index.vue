@@ -265,7 +265,7 @@ export default {
     z-index: 99;
 
     .header {
-        padding: 10px 0;
+        padding: 10px 0 12px;
         display: flex;
         line-height: 24px;
 
