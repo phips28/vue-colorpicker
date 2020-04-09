@@ -260,8 +260,9 @@ export default {
     position: relative;
     padding: 0 10px 10px 10px;
     background: #1d2024;
-    border-radius: 4px;
+    border-radius: 6px;
     box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.16);
+    border: 1px solid rgba(0, 0, 0, 0.15);
     z-index: 99;
 
     .header {
