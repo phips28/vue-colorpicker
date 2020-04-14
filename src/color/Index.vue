@@ -49,33 +49,33 @@ export default {
         Preview,
         Sucker,
         Box,
-        Colors
+        Colors,
     },
     mixins: [mixin],
     props: {
         title: {
             type: String,
-            default: 'Choose a color'
+            default: 'Choose a color',
         },
         color: {
             type: String,
-            default: '#000000'
+            default: '#000000',
         },
         theme: {
             type: String,
-            default: 'dark'
+            default: 'dark',
         },
         suckerHide: {
             type: Boolean,
-            default: true
+            default: true,
         },
         suckerCanvas: {
             type: null, // HTMLCanvasElement
-            default: null
+            default: null,
         },
         suckerArea: {
             type: Array,
-            default: () => []
+            default: () => [],
         },
         colorsDefault: {
             type: Array,
@@ -95,13 +95,13 @@ export default {
                 '#FC3CAD',
                 '#BF3DCE',
                 '#8E00A7',
-                'rgba(0,0,0,0)'
-            ]
+                'rgba(0,0,0,0)',
+            ],
         },
         colorsHistoryKey: {
             type: String,
-            default: 'vue-colorpicker-history'
-        }
+            default: 'vue-colorpicker-history',
+        },
     },
     data() {
         return {
@@ -116,7 +116,7 @@ export default {
             a: 1,
             h: 0,
             s: 0,
-            v: 0
+            v: 0,
         }
     },
     computed: {
@@ -134,14 +134,14 @@ export default {
                 r: this.r,
                 g: this.g,
                 b: this.b,
-                a: this.a
+                a: this.a,
             }
         },
         hsv() {
             return {
                 h: this.h,
                 s: this.s,
-                v: this.v
+                v: this.v,
             }
         },
         rgbString() {
@@ -155,7 +155,7 @@ export default {
         },
         hexString() {
             return this.rgb2hex(this.rgba, true)
-        }
+        },
     },
     created() {
         Object.assign(this, this.setColorValue(this.color))
@@ -166,7 +166,7 @@ export default {
             this.$emit('changeColor', {
                 rgba: this.rgba,
                 hsv: this.hsv,
-                hex: this.modelHex
+                hex: this.modelHex,
             })
         })
     },
@@ -240,8 +240,8 @@ export default {
                 this.$refs.saturation.renderSlide()
                 this.$refs.hue.renderSlide()
             })
-        }
-    }
+        },
+    },
 }
 </script>
 
@@ -279,7 +279,6 @@ export default {
             position: relative;
             cursor: pointer;
             font-size: 2rem;
-            pointer-events: all;
             flex: 0 1;
             text-align: right;
 
