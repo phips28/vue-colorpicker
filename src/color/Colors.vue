@@ -113,6 +113,8 @@ export default {
         display: inline-block;
         transition: all 0.1s;
         cursor: pointer;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); // to make white visible too
+
         &:nth-child(7n + 1) {
             margin-left: 0;
         }
