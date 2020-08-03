@@ -83,8 +83,8 @@ export default {
             if (index >= 0) {
                 colors.splice(index, 1)
             }
-            if (colors.length >= 8) {
-                colors.length = 7
+            if (colors.length >= 7) {
+                colors.length = 6
             }
             colors.unshift(color)
             this.colorsHistory = colors
@@ -113,7 +113,7 @@ export default {
         display: inline-block;
         transition: all 0.1s;
         cursor: pointer;
-        &:nth-child(8n + 1) {
+        &:nth-child(7n + 1) {
             margin-left: 0;
         }
         &:hover {

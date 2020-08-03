@@ -1,14 +1,24 @@
 <template>
     <div id="picker">
-        <div class="blur-bg" @click="close()"></div>
+        <div
+            class="blur-bg"
+            @click="close()"
+        />
         <div
             class="hu-color-picker"
             :class="{ light: isLightTheme }"
             :style="{ width: totalWidth + 'px' }"
         >
             <div class="header">
-                <div class="title">{{ title }}</div>
-                <div class="close-icon" @click="close()">×</div>
+                <div class="title">
+                    {{ title }}
+                </div>
+                <div
+                    class="close-icon"
+                    @click="close()"
+                >
+                    ×
+                </div>
             </div>
             <div class="color-set">
                 <Saturation
@@ -26,8 +36,23 @@
                     @selectHue="selectHue"
                 />
             </div>
-            <Box name="HEX" :color="modelHex" @inputColor="inputHex" />
-            <Box name="RGBA" :color="modelRgba" @inputColor="inputRgba" />
+            <Box
+                name="HEX"
+                :color="modelHex"
+                @inputColor="inputHex"
+            />
+            <Box
+                name="RGBA"
+                :color="modelRgba"
+                @inputColor="inputRgba"
+            />
+            <Colors
+                v-if="showColors"
+                :color="rgbaString"
+                :colors-default="colorsDefault"
+                :colors-history-key="colorsHistoryKey"
+                @selectColor="selectColor"
+            />
         </div>
     </div>
 </template>
@@ -95,13 +120,16 @@ export default {
                 '#FC3CAD',
                 '#BF3DCE',
                 '#8E00A7',
-                'rgba(0,0,0,0)',
             ],
         },
         colorsHistoryKey: {
             type: String,
             default: 'vue-colorpicker-history',
         },
+        showColors: {
+            type: Boolean,
+            default: false
+        }
     },
     data() {
         return {
